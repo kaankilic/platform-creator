@@ -1,7 +1,12 @@
 <?php
 namespace Kaankilic\PlatformCreator\Providers;
 use Illuminate\Support\ServiceProvider;
-class ServerUpServiceProvider extends ServiceProvider {
+use Kaankilic\PlatformCreator\Commands\ReadEnv;
+use Illuminate\Support\Collection;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Support\Facades\Route;
+class PlatformCreatorServiceProvider extends ServiceProvider {
+	use DispatchesJobs;
 	protected $defer = false;
 	/**
 	* Bootstrap the application services.
@@ -9,10 +14,9 @@ class ServerUpServiceProvider extends ServiceProvider {
 	* @return void
 	*/
 	public function boot(\Illuminate\Routing\Router $router){
-		$this->publishes([
-			__DIR__.'/../../config/serverup.php' => config_path('serverup.php')
-		]);
-		$this->app->bind('ServerUp', 'Kaankilic\ServerUp\Libraries\ServerUp' );
+
+
+
 	}
 
 	/**
@@ -21,7 +25,9 @@ class ServerUpServiceProvider extends ServiceProvider {
 	* @return void
 	*/
 	public function register(){
-		$this->mergeConfigFrom(__DIR__ . '/../../config/serverup.php', 'serverup');
-		return array('ServerUp');
+		if(app()->environment('staging')){
+			$this->loadViewsFrom(__DIR__.'/../../resources/views/','platform-creator');
+			$this->loadRoutesFrom(__DIR__.'/../../resources/web.php');
+		}
 	}
 }

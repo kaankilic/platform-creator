@@ -1,5 +1,5 @@
 <?php
-namespace Kaankilic\Commands;
+namespace Kaankilic\PlatformCreator\Commands;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 /**
 * Class ReadEnvironmentFile
@@ -19,7 +19,7 @@ class ReadEnv
 	public function handle()
 	{
 		$data = [];
-		$file = $this->dispatchNow(new GetEnvironmentFile());
+		$file = $this->dispatchNow(new GetEnv());
 		if (!file_exists($file)) {
 			return $data;
 		}

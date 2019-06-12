@@ -1,5 +1,5 @@
 <?php
-namespace Kaankilic\Commands;
+namespace Kaankilic\PlatformCreator\Commands;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 /**
  * Class WriteEnvironmentFile
@@ -43,7 +43,7 @@ class WriteEnv
                 $contents .= $value . PHP_EOL;
             }
         }
-        $file = $this->dispatchNow(new GetEnvironmentFile());
+        $file = $this->dispatchNow(new GetEnv());
         file_put_contents($file, $contents);
     }
 }

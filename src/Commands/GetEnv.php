@@ -1,5 +1,5 @@
-
-<?php namespace Kaankilic\PlatformCreator\Commands;
+<?php 
+namespace Kaankilic\PlatformCreator\Commands;
 /**
  * Class GetEnvironmentFile
  *
