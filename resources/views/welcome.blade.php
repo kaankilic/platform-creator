@@ -37,6 +37,10 @@
 				<input type="text" name="db_password" class="form-control" placeholder="DB Password">
 			</div>
 			<div class="form-group">
+				<label for="exampleInputEmail1">Admin Name</label>
+				<input type="text" name="name" class="form-control" placeholder="Admin E-Mail">
+			</div>
+			<div class="form-group">
 				<label for="exampleInputEmail1">Admin E-Mail</label>
 				<input type="text" name="email" class="form-control" placeholder="Admin E-Mail">
 			</div>

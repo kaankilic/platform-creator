@@ -14,6 +14,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use Kaankilic\PlatformCreator\Exceptions\InvalidPurchaseCode;
 use Artisan;
+use App\Models\Users;
 class InstallerController extends Controller
 {
 	use DispatchesJobs;
@@ -24,7 +25,7 @@ class InstallerController extends Controller
 	public function create(Request $request){
 		$db = $request->only(["host","db_username","db_password","db_name"]);
 		$app = $request->only(["app_name","app_url"]);
-		$user = $request->only(["email","password"]);
+		$inputs = $request->only(["email","name","password"]);
 		$purchase_code = $request->get("purchase_code");
 		$client = new Client();
 		$res = $client->request('GET', "http://verify.kaankilic.com/check/".$purchase_code);
@@ -43,8 +44,9 @@ class InstallerController extends Controller
 		$data->put('DB_HOST', $db["host"]);
 		$data->put('DB_DATABASE', $db['db_name']);
 		$data->put('DB_USERNAME', $db['db_username']);
-		$data->put('APP_DEBUG', false);
 		$data->put('APP_NAME', $app['app_name']);
+		$data->put('APP_DEBUG', "false");
+		$data->put('APP_ENV', "production");
 		$data->put('APP_URL', $app['app_url']);
 		$data->put('PURCHASE_CODE', $purchase_code);
 		$this->dispatch(new WriteEnv($data->all()));
@@ -52,6 +54,13 @@ class InstallerController extends Controller
 		$exitCode = Artisan::call('migrate', [
 			'--seed' => true
 		]);
+		option([
+			"app_name" => $app['app_name'],
+			"app_url" => $app['app_url'],
+			'purchase_code' => $purchase_code
+		]);
+		$user = Users::create($inputs);
+		$user->assignRole("superadmin");
 		return redirect()->route("login");
 	}
 
