@@ -23,6 +23,7 @@ class InstallerController extends Controller
 		return view("platform-creator::welcome");
 	}
 	public function create(Request $request){
+		$exitCode = Artisan::call('key:generate');
 		$db = $request->only(["host","db_username","db_password","db_name"]);
 		$app = $request->only(["app_name","app_url"]);
 		$inputs = $request->only(["email","name","password"]);
