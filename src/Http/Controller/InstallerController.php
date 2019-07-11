@@ -45,6 +45,7 @@ class InstallerController extends Controller
 		$data->put('DB_HOST', $db["host"]);
 		$data->put('DB_DATABASE', $db['db_name']);
 		$data->put('DB_USERNAME', $db['db_username']);
+		$data->put('DB_PASSWORD', $db['db_password']);
 		$data->put('APP_NAME', $app['app_name']);
 		$data->put('APP_DEBUG', "false");
 		$data->put('APP_ENV', "production");
