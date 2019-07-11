@@ -55,7 +55,7 @@ class InstallerController extends Controller
 			'--seed' => true
 		]);
 		event(new AppInstalledNotification($app, $purchase_code));
-		$user = Users::create($inputs);
+		$user = Users::withoutActivityLogging()->create($inputs);
 		$user->assignRole("superadmin");
 		return redirect()->route("login");
 	}
