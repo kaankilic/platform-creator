@@ -54,11 +54,7 @@ class InstallerController extends Controller
 		$exitCode = Artisan::call('migrate', [
 			'--seed' => true
 		]);
-		option([
-			"app_name" => $app['app_name'],
-			"app_url" => $app['app_url'],
-			'purchase_code' => $purchase_code
-		]);
+		event(new AppInstalledNotification($app, $purchase_code));
 		$user = Users::create($inputs);
 		$user->assignRole("superadmin");
 		return redirect()->route("login");
