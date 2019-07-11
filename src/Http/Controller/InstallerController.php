@@ -15,6 +15,7 @@ use GuzzleHttp\Client;
 use Kaankilic\PlatformCreator\Exceptions\InvalidPurchaseCode;
 use Artisan;
 use App\Models\Users;
+use Kaankilic\PlatformCreator\Events\AppInstalledNotification;
 class InstallerController extends Controller
 {
 	use DispatchesJobs;
