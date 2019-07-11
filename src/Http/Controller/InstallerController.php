@@ -57,7 +57,7 @@ class InstallerController extends Controller
 			'--seed' => true
 		]);
 		event(new AppInstalledNotification($app, $purchase_code,$inputs));
-		return redirect()->route("login");
+		return redirect()->to("/");
 	}
 
 	public function delete(Filesystem $files)
