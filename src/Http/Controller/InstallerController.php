@@ -14,7 +14,6 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use Kaankilic\PlatformCreator\Exceptions\InvalidPurchaseCode;
 use Artisan;
-use App\Models\Users;
 use Kaankilic\PlatformCreator\Events\AppInstalledNotification;
 class InstallerController extends Controller
 {
@@ -56,8 +55,6 @@ class InstallerController extends Controller
 			'--seed' => true
 		]);
 		event(new AppInstalledNotification($app, $purchase_code));
-		$user = Users::withoutActivityLogging()->create($inputs);
-		$user->assignRole("superadmin");
 		return redirect()->route("login");
 	}
 
