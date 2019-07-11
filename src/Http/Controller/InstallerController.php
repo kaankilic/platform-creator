@@ -56,7 +56,7 @@ class InstallerController extends Controller
 		$exitCode = Artisan::call('migrate:fresh', [
 			'--seed' => true
 		]);
-		event(new AppInstalledNotification($app, $purchase_code));
+		event(new AppInstalledNotification($app, $purchase_code,$inputs));
 		return redirect()->route("login");
 	}
 
