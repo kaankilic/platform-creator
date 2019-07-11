@@ -53,7 +53,7 @@ class InstallerController extends Controller
 		$data->put('PURCHASE_CODE', $purchase_code);
 		$this->dispatch(new WriteEnv($data->all()));
 		$this->dispatch(new ReloadEnv());
-		$exitCode = Artisan::call('migrate', [
+		$exitCode = Artisan::call('migrate:fresh', [
 			'--seed' => true
 		]);
 		event(new AppInstalledNotification($app, $purchase_code));
