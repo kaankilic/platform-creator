@@ -1,6 +1,6 @@
 <?php
 namespace Kaankilic\PlatformCreator\Events;
-
+use Illuminate\Foundation\Events\Dispatchable;
 class AppInstalledNotification{
 	use Dispatchable;
 	protected $app;
