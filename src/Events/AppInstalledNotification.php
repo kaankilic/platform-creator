@@ -3,13 +3,13 @@ namespace Kaankilic\PlatformCreator\Events;
 use Illuminate\Foundation\Events\Dispatchable;
 class AppInstalledNotification{
 	use Dispatchable;
-	protected $app;
+	public $app;
+	public $purchase_code;
+	public $user
 	public function __construct($app, $purchase_code,$inputs){
-		$app["purchase_code"] = $purchase_code;
-		$app["name"] = $inputs["name"];
-		$app["email"] = $inputs["email"];
-		$app["password"] = $inputs["password"];
 		$this->app = $app;
+		$this->purchase_code = $purchase_code;
+		$this->user = $inputs;
 	}
 }
 ?>
