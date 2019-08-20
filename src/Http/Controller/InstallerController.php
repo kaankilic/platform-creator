@@ -54,6 +54,10 @@ class InstallerController extends Controller
 		$data->put('PURCHASE_CODE', $purchase_code);
 		$this->dispatch(new WriteEnv($data->all()));
 		$this->dispatch(new ReloadEnv());
+		\Config::set('database.connections.mysql.host',$db["host"]);
+		\Config::set('database.connections.mysql.database',$db["db_name"]);
+		\Config::set('database.connections.mysql.username',$db["db_username"]);
+		\Config::set('database.connections.mysql.password',$db["db_password"]);
 		$exitCode = Artisan::call('migrate:fresh', [
 			'--seed' => true
 		]);
