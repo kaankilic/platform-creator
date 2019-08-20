@@ -6,6 +6,11 @@
 	</div>
 	<div class="card-body">
 		<p>Welcome! You have to set your purchase key for the license verification.</p>
+		@if(session('error-message'))
+		<div class="alert alert-danger" role="alert">
+			{{session('error-message')}}
+		</div>
+		@endif
 		<form action="{{route('installer::create')}}" method="POST">
 			@csrf
 			<div class="form-group">
