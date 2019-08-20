@@ -41,6 +41,7 @@ class InstallerController extends Controller
 			throw new InvalidPurchaseCode("Invalid Purchase Code");
 		}
 		$data = new Collection($this->dispatch(new ReadEnv()));
+		$old = $data->all();
 		$data->put('DB_CONNECTION', "mysql");
 		$data->put('DB_HOST', $db["host"]);
 		$data->put('DB_DATABASE', $db['db_name']);
@@ -56,6 +57,10 @@ class InstallerController extends Controller
 		$exitCode = Artisan::call('migrate:fresh', [
 			'--seed' => true
 		]);
+		if(!$exitCode){
+			$this->dispatch(new WriteEnv($old));
+			$this->dispatch(new ReloadEnv());
+		}
 		event(new AppInstalledNotification($app, $purchase_code,$inputs));
 		return redirect()->to("/");
 	}
