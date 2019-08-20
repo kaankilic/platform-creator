@@ -32,13 +32,13 @@ class InstallerController extends Controller
 		$res = $client->request('GET', "http://verify.kaankilic.com/check/".$purchase_code);
 		$validation = json_decode($res->getBody());
 		if($res->getStatusCode()!="200"){
-			return redirect()->to("/install")->withInputs()->with("error-message","Conncetivity issue on the verification endpoint.");
+			return redirect()->route("installer::index")->withInput()->with("error-message","Conncetivity issue on the verification endpoint.");
 		}
 		if(!isset($validation->is)){
-			return redirect()->to("/install")->withInputs()->with("error-message","Verification response error.");
+			return redirect()->route("installer::index")->withInput()->with("error-message","Verification response error.");
 		}
 		if($validation->is!="valid"){
-			return redirect()->to("/install")->withInputs()->with("error-message","Invalid purchase code");
+			return redirect()->route("installer::index")->withInput()->with("error-message","Invalid purchase code");
 		}
 		try{
 			\Config::set('database.connections.mysql.host',$db["host"]);
@@ -47,7 +47,7 @@ class InstallerController extends Controller
 			\Config::set('database.connections.mysql.password',$db["db_password"]);
 			\DB::connection()->getPdo();
 		}catch(\Exception $e){
-			return redirect()->to("/install")->withInputs()->with("error-message","Cannot connect to db.");
+			return redirect()->route("installer::index")->withInput()->with("error-message","Cannot connect to db.");
 		}
 		$data = new Collection($this->dispatch(new ReadEnv()));
 		$old = $data->all();
