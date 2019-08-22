@@ -10,7 +10,7 @@ class InstallRequest extends FormRequest{
 	*/
 	public function authorize()
 	{
-		return auth()->user()->hasAllPermissions(["create-categories","update-categories"]);
+		return true;
 	}
 
 	/**
