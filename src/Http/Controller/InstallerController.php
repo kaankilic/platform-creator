@@ -15,6 +15,7 @@ use GuzzleHttp\Client;
 use Kaankilic\PlatformCreator\Exceptions\InvalidPurchaseCode;
 use Artisan;
 use Kaankilic\PlatformCreator\Events\AppInstalledNotification;
+use Kaankilic\PlatformCreator\Http\Requests\InstallRequest;
 class InstallerController extends Controller
 {
 	use DispatchesJobs;
@@ -22,7 +23,7 @@ class InstallerController extends Controller
 	{
 		return view("platform-creator::welcome");
 	}
-	public function create(Request $request){
+	public function create(InstallRequest $request){
 		$exitCode = Artisan::call('key:generate');
 		$db = $request->only(["host","db_username","db_password","db_name"]);
 		$app = $request->only(["app_name","app_url"]);
