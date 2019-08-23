@@ -29,7 +29,7 @@ class InstallRequest extends FormRequest{
 			"app_url" => "required",
 			"email" => "required",
 			"name" => "required",
-			"password" => "required",
+			"password" => "nullable",
 			"purchase_code" => "required"
 		];
 	}
