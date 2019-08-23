@@ -45,10 +45,12 @@ class InstallerController extends Controller
 			return redirect()->route("installer::index")->withInput()->with("error-message","Invalid purchase code");
 		}
 		try{
-			\Config::set('database.connections.mysql.host',$db["host"]);
-			\Config::set('database.connections.mysql.database',$db["db_name"]);
-			\Config::set('database.connections.mysql.username',$db["db_username"]);
-			\Config::set('database.connections.mysql.password',$db["db_password"]);
+			config([
+				'database.connections.mysql.host',$db["host"],
+				'database.connections.mysql.database',$db["db_name"],
+				'database.connections.mysql.username',$db["db_username"],
+				'database.connections.mysql.password',$db["db_password"]
+			]);
 			\DB::connection()->getPdo();
 		}catch(\Exception $e){
 			\Log::error($db["db_username"]." user with ".$db["db_name"]." (password:".$db["db_password"].") not connected to db.");
