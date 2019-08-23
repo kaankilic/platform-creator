@@ -33,12 +33,15 @@ class InstallerController extends Controller
 		$res = $client->request('GET', "http://verify.kaankilic.com/check/".$purchase_code);
 		$validation = json_decode($res->getBody());
 		if($res->getStatusCode()!="200"){
+			\Log::error("verification connectivity issue.");
 			return redirect()->route("installer::index")->withInput()->with("error-message","Conncetivity issue on the verification endpoint.");
 		}
 		if(!isset($validation->is)){
+			\Log::error("verification response error.");
 			return redirect()->route("installer::index")->withInput()->with("error-message","Verification response error.");
 		}
 		if($validation->is!="valid"){
+			\Log::error("invalid license error");
 			return redirect()->route("installer::index")->withInput()->with("error-message","Invalid purchase code");
 		}
 		try{
@@ -48,6 +51,7 @@ class InstallerController extends Controller
 			\Config::set('database.connections.mysql.password',$db["db_password"]);
 			\DB::connection()->getPdo();
 		}catch(\Exception $e){
+			\Log::error("not connected to db.");
 			return redirect()->route("installer::index")->withInput()->with("error-message","Cannot connect to db.");
 		}
 		$data = new Collection($this->dispatch(new ReadEnv()));
