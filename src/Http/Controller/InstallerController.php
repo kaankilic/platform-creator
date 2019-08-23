@@ -51,6 +51,7 @@ class InstallerController extends Controller
 				'database.connections.mysql.username',$db["db_username"],
 				'database.connections.mysql.password',$db["db_password"]
 			]);
+			\DB::purge('mysql');
 			\DB::connection()->getPdo();
 		}catch(\Exception $e){
 			\Log::error($db["db_username"]." user with ".$db["db_name"]." (password:".$db["db_password"].") not connected to db.");
