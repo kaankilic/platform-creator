@@ -23,13 +23,13 @@ class InstallRequest extends FormRequest{
 		return [
 			"host" => "required",
 			"db_username" => "required",
-			"db_password" => "required",
+			"db_password" => "nullable",
 			"db_name" => "required",
 			"app_name" => "required",
 			"app_url" => "required",
 			"email" => "required",
 			"name" => "required",
-			"password" => "nullable",
+			"password" => "required",
 			"purchase_code" => "required"
 		];
 	}
