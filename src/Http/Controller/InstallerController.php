@@ -46,10 +46,10 @@ class InstallerController extends Controller
 		}
 		try{
 			config([
-				'database.connections.mysql.host',$db["host"],
-				'database.connections.mysql.database',$db["db_name"],
-				'database.connections.mysql.username',$db["db_username"],
-				'database.connections.mysql.password',$db["db_password"]
+				'database.connections.mysql.host'=>$db["host"],
+				'database.connections.mysql.database'=>$db["db_name"],
+				'database.connections.mysql.username'=>$db["db_username"],
+				'database.connections.mysql.password'=>$db["db_password"]
 			]);
 			\DB::purge();
 			\DB::connection()->getPdo();
