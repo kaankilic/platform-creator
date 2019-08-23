@@ -51,7 +51,7 @@ class InstallerController extends Controller
 			\Config::set('database.connections.mysql.password',$db["db_password"]);
 			\DB::connection()->getPdo();
 		}catch(\Exception $e){
-			\Log::error("not connected to db.");
+			\Log::error($db["db_username"]." user with ".$db["db_name"]." (password:".$db["db_password"].") not connected to db.");
 			return redirect()->route("installer::index")->withInput()->with("error-message","Cannot connect to db.");
 		}
 		$data = new Collection($this->dispatch(new ReadEnv()));
