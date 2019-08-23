@@ -75,10 +75,7 @@ class InstallerController extends Controller
 		$exitCode = Artisan::call('migrate:fresh', [
 			'--seed' => true
 		]);
-		if(!$exitCode){
-			$this->dispatch(new WriteEnv($old));
-			$this->dispatch(new ReloadEnv());
-		}
+		Artisan::call('optimize:clear');
 		event(new AppInstalledNotification($app, $purchase_code,$inputs));
 		return redirect()->to("/");
 	}
