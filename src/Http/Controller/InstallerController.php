@@ -44,19 +44,6 @@ class InstallerController extends Controller
 			\Log::error("invalid license error");
 			return redirect()->route("installer::index")->withInput()->with("error-message","Invalid purchase code");
 		}
-		try{
-			config([
-				'database.connections.mysql.host',$db["host"],
-				'database.connections.mysql.database',$db["db_name"],
-				'database.connections.mysql.username',$db["db_username"],
-				'database.connections.mysql.password',$db["db_password"]
-			]);
-			\DB::purge('mysql');
-			\DB::connection()->getPdo();
-		}catch(\Exception $e){
-			\Log::error($db["db_username"]." user with ".$db["db_name"]." (password:".$db["db_password"].") not connected to db.");
-			return redirect()->route("installer::index")->withInput()->with("error-message","Cannot connect to db.");
-		}
 		$data = new Collection($this->dispatch(new ReadEnv()));
 		$old = $data->all();
 		$data->put('DB_CONNECTION', "mysql");
