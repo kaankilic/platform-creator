@@ -32,6 +32,7 @@ class InstallerController extends Controller
 		$client = new Client();
 		$res = $client->request('GET', "http://verify.kaankilic.com/check/".$purchase_code);
 		$validation = json_decode($res->getBody());
+		\Log::info($request->all());
 		if($res->getStatusCode()!="200"){
 			\Log::error("verification connectivity issue.");
 			return redirect()->route("installer::index")->withInput()->with("error-message","Conncetivity issue on the verification endpoint.");
@@ -46,10 +47,10 @@ class InstallerController extends Controller
 		}
 		try{
 			config([
-				'database.connections.mysql.host'=>$db["host"],
-				'database.connections.mysql.database'=>$db["db_name"],
-				'database.connections.mysql.username'=>$db["db_username"],
-				'database.connections.mysql.password'=>$db["db_password"]
+				'database.connections.mysql.host' => $db["host"],
+				'database.connections.mysql.database' => $db["db_name"],
+				'database.connections.mysql.username' => $db["db_username"],
+				'database.connections.mysql.password' => $db["db_password"]
 			]);
 			\DB::purge();
 			\DB::connection()->getPdo();
