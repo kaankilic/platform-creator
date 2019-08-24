@@ -25,7 +25,7 @@ class PlatformCreatorServiceProvider extends ServiceProvider {
 	* @return void
 	*/
 	public function register(){
-		if(app()->environment('staging')){
+		if(app()->environment('staging','local', 'testing')){
 			$this->loadViewsFrom(__DIR__.'/../../resources/views/','platform-creator');
 			$this->loadRoutesFrom(__DIR__.'/../../resources/web.php');
 		}
