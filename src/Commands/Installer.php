@@ -107,7 +107,6 @@ class Installer extends Command
 		$client = new Client();
 		$res = $client->request('GET', "http://verify.kaankilic.com/check/".$purchase_code);
 		$validation = json_decode($res->getBody());
-		\Log::info($request->all());
 		if($res->getStatusCode()!="200"){
 			\Log::error("verification connectivity issue.");
 			$this->danger("Could not connect to license manager.");
