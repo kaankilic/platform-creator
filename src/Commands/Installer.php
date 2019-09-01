@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands\Core;
+namespace Kaankilic\PlatformCreator\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Cache\CacheManager;
