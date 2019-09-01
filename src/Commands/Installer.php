@@ -58,7 +58,7 @@ class Installer extends Command
 		$db["app_name"] = $this->ask('app name:');
 		$db["app_url"] = $this->ask('app url:');
 
-		do{}
+		do{
 			$db["host"] = $this->ask('db host:');
 			$db["db_username"] = $this->ask('db username:');
 			$db["db_password"] = $this->ask('db password:');
