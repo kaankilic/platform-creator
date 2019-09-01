@@ -28,6 +28,9 @@ class PlatformCreatorServiceProvider extends ServiceProvider {
 		if(app()->environment('staging','local', 'testing')){
 			$this->loadViewsFrom(__DIR__.'/../../resources/views/','platform-creator');
 			$this->loadRoutesFrom(__DIR__.'/../../resources/web.php');
+			$this->commands([
+				\Kaankilic\PlatformCreator\Commands\Installer::class
+			]);
 		}
 	}
 }
