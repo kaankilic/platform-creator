@@ -52,18 +52,20 @@ class Installer extends Command
 	*/
 	public function handle(){
 		Artisan::call('key:generate');
+		$this->info("Application preparing...");
 		do {
-			$purchase_code = $this->ask('Please set purchase code:');
+			$purchase_code = $this->ask('Purchase code');
 		}while($this->verification($purchase_code));
-		$db["app_name"] = $this->ask('app name:');
-		$db["app_url"] = $this->ask('app url:');
-
+		$app["app_name"] = $this->ask('Application Name');
+		$app["app_url"] = $this->ask('Application URL');
+		$this->info("Database connection preparing...");
 		do{
 			$db["host"] = $this->ask('db host:');
 			$db["db_username"] = $this->ask('db username:');
 			$db["db_password"] = $this->ask('db password:');
 			$db["db_name"] = $this->ask('db name:');
 		}while($this->checkDB($db));
+		$this->info("Administrator user creating...");
 		$inputs["email"] = $this->ask("email");
 		$inputs["name"] = $this->ask("name");
 		$inputs["password"] = $this->ask("password");
@@ -114,13 +116,15 @@ class Installer extends Command
 		}
 		if(!isset($validation->is)){
 			\Log::error("verification response error.");
-			$this->danger("You've typed invalid license");
+			$this->danger("There is a problem on the verification server.");
 			return false;
 		}
 		if($validation->is!="valid"){
 			\Log::error("invalid license error");
-			$this->info("Purchase code verified succesfully.");
-			return true;
+			$this->danger("Purchase code is invalid.");
+			return false;
 		}
+		$this->success("Purchase code verified succesfully.");
+		return true;
 	}
 }
