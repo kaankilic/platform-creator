@@ -69,6 +69,14 @@ class Installer extends Command
 		$inputs["email"] = $this->ask("email");
 		$inputs["name"] = $this->ask("name");
 		$inputs["password"] = $this->ask("password");
+		$headers = ["email","name","password"];
+		$row[] = [
+			$company["email"],
+			$company["name"],
+			$company["password"]
+		];
+		$this->table($headers,$row);
+		$this->info('Building enviroment file..');
 		$data = new Collection($this->dispatch(new ReadEnv()));
 		$old = $data->all();
 		$data->put('DB_CONNECTION', "mysql");
@@ -83,11 +91,14 @@ class Installer extends Command
 		$data->put('PURCHASE_CODE', $purchase_code);
 		$this->dispatch(new WriteEnv($data->all()));
 		$this->dispatch(new ReloadEnv());
+		$this->info('Migrating application and plugins...');
 		$exitCode = Artisan::call('migrate:fresh', [
 			'--seed' => true
 		]);
+		$this->info('Optimizing the application..');
 		Artisan::call('optimize:clear');
 		event(new AppInstalledNotification($app, $purchase_code,$inputs));
+		$this->info('Application installed succesfully!');
 	}
 	public function checkDB($db){
 		try{
