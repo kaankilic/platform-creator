@@ -71,9 +71,9 @@ class Installer extends Command
 		$inputs["password"] = $this->ask("password");
 		$headers = ["email","name","password"];
 		$row[] = [
-			$company["email"],
-			$company["name"],
-			$company["password"]
+			$inputs["email"],
+			$inputs["name"],
+			$inputs["password"]
 		];
 		$this->table($headers,$row);
 		$this->info('Building enviroment file..');
