@@ -26,7 +26,7 @@ class Installer extends Command
 	*
 	* @var string
 	*/
-	protected $signature = 'source:install';
+	protected $signature = 'usource:install';
 
 	/**
 	* The console command description.
