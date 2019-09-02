@@ -55,7 +55,7 @@ class Installer extends Command
 		$this->info("Application preparing...");
 		do {
 			$purchase_code = $this->ask('Purchase code');
-		}while($this->verification($purchase_code));
+		}while(!$this->verification($purchase_code));
 		$app["app_name"] = $this->ask('Application Name');
 		$app["app_url"] = $this->ask('Application URL');
 		$this->info("Database connection preparing...");
@@ -64,7 +64,7 @@ class Installer extends Command
 			$db["db_username"] = $this->ask('db username:');
 			$db["db_password"] = $this->ask('db password:');
 			$db["db_name"] = $this->ask('db name:');
-		}while($this->checkDB($db));
+		}while(!$this->checkDB($db));
 		$this->info("Administrator user creating...");
 		$inputs["email"] = $this->ask("email");
 		$inputs["name"] = $this->ask("name");
