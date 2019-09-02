@@ -124,7 +124,7 @@ class Installer extends Command
 			$this->error("Purchase code is invalid.");
 			return false;
 		}
-		$this->success("Purchase code verified succesfully.");
+		$this->info("Purchase code verified succesfully.");
 		return true;
 	}
 }
