@@ -111,17 +111,17 @@ class Installer extends Command
 		$validation = json_decode($res->getBody());
 		if($res->getStatusCode()!="200"){
 			\Log::error("verification connectivity issue.");
-			$this->danger("Could not connect to license manager.");
+			$this->error("Could not connect to license manager.");
 			return false;
 		}
 		if(!isset($validation->is)){
 			\Log::error("verification response error.");
-			$this->danger("There is a problem on the verification server.");
+			$this->error("There is a problem on the verification server.");
 			return false;
 		}
 		if($validation->is!="valid"){
 			\Log::error("invalid license error");
-			$this->danger("Purchase code is invalid.");
+			$this->error("Purchase code is invalid.");
 			return false;
 		}
 		$this->success("Purchase code verified succesfully.");
