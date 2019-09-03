@@ -64,7 +64,7 @@ class Installer extends Command
 			$db["db_username"] = $this->ask('db username:');
 			$db["db_password"] = $this->ask('db password:');
 			$db["db_name"] = $this->ask('db name:');
-		}while($this->checkDB($db));
+		}while(!$this->checkDB($db));
 		$this->info("Administrator user creating...");
 		$inputs["email"] = $this->ask("email");
 		$inputs["name"] = $this->ask("name");
